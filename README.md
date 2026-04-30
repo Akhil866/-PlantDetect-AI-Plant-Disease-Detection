@@ -2,11 +2,11 @@
 
 An end-to-end deep learning application that detects diseases in plant leaves using a fine-tuned ResNet18 model. Upload a photo of a plant leaf and get instant disease diagnosis with confidence scores.
 
-### 🔗 [Live Demo](https://YOUR_RENDER_URL.onrender.com)
+### 🔗 [Live Demo](https://plantdetect-ai-plant-disease-detection-1.onrender.com)
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-ResNet18-red)
-![Flask](https://img.shields.io/badge/Flask-Backend-green)
+![Flask](https://img.shields.io/badge/Flask-Backend-green
 
 
 ## 🎯 Features
