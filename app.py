@@ -181,11 +181,13 @@ def add_cors_headers(response):
 # Run
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
     print("\n🌿 PlantDetect Server")
     print("=" * 40)
     print(f"  Model path:  {MODEL_PATH}")
     print(f"  Model found: {'✅ Yes' if os.path.exists(MODEL_PATH) else '❌ No — run train.py first'}")
-    print(f"  Server:      http://localhost:5000")
+    print(f"  Server:      http://localhost:{port}")
     print("=" * 40 + "\n")
 
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=False)
+

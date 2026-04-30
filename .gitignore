@@ -4,9 +4,6 @@
 # Dataset (too large for git)
 PlantVillage/
 
-# Trained model (too large for git — ~45MB)
-*.pth
-
 # Python cache
 __pycache__/
 *.pyc
