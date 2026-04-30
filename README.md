@@ -51,7 +51,7 @@ plant-disease-detection/
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/plant-disease-detection.git
+git clone https://github.com/Akhil866/plant-disease-detection.git
 cd plant-disease-detection
 
 # Create virtual environment
@@ -100,6 +100,4 @@ Open [http://localhost:5000](http://localhost:5000) in your browser and upload a
 - **Optimizer**: Adam (lr=0.001)
 - **Regularization**: Dropout (0.5) + Early stopping (patience=2)
 
-## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
