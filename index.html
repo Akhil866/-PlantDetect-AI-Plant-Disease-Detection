@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered plant disease detection. Upload a leaf photo and get instant diagnosis with confidence scores.">
+    <title>PlantDetect — AI Plant Disease Detection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>🌿 PlantDetect</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#detection">Detect</a></li>
+                    <li><a href="#library">Library</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="container">
+            <div class="home-content">
+                <h2>Early Detection for <span class="highlight">Healthier Plants</span></h2>
+                <p>Upload a leaf photo and get instant AI-powered disease diagnosis with confidence scores.</p>
+                <div class="hero-buttons">
+                    <a href="#detection" class="btn btn-primary">🔬 Start Detection</a>
+                    <a href="#library" class="btn btn-secondary">📚 Disease Library</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">15</div>
+                        <div class="stat-label">Disease Classes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Plant Species</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">AI</div>
+                        <div class="stat-label">Powered by ResNet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Section -->
+    <section id="detection">
+        <div class="container">
+            <div class="section-header">
+                <h2>Disease Detection</h2>
+                <p>Upload a clear photo of the affected leaf for the best results</p>
+            </div>
+            <div class="detection-wrapper">
+                <!-- Upload Side -->
+                <div class="upload-area">
+                    <h3 style="margin-bottom: 20px; font-size: 1.1rem;">Upload Image</h3>
+                    <div class="dropzone" id="dropzone">
+                        <div class="dropzone-icon">📷</div>
+                        <h3>Drag & drop your image here</h3>
+                        <p>or click to browse — PNG, JPG, WEBP up to 16MB</p>
+                        <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/bmp">
+                    </div>
+                    <div class="image-preview" id="imagePreview">
+                        <img id="previewImg" src="" alt="Preview">
+                        <div class="file-name" id="fileName"></div>
+                    </div>
+                    <div class="upload-actions" id="uploadActions" style="display: none;">
+                        <button class="btn btn-primary" id="predictBtn" onclick="submitPrediction()">🔬 Analyze</button>
+                        <button class="btn btn-secondary" onclick="clearUpload()">✕ Clear</button>
+                    </div>
+                    <div class="error-banner" id="errorBanner"></div>
+                </div>
+
+                <!-- Results Side -->
+                <div class="results-area" style="position: relative;">
+                    <h3 style="margin-bottom: 20px; font-size: 1.1rem;">Results</h3>
+
+                    <div class="spinner-overlay" id="spinner">
+                        <div class="spinner"></div>
+                        <div class="spinner-text">Analyzing leaf...</div>
+                    </div>
+
+                    <div class="results-placeholder" id="resultsPlaceholder">
+                        <div class="icon">🍃</div>
+                        <p>Upload an image to see<br>disease detection results</p>
+                    </div>
+
+                    <div class="result-card" id="resultCard">
+                        <div class="result-status" id="resultStatus">
+                            <div class="status-icon" id="statusIcon"></div>
+                            <div class="status-text">
+                                <h3 id="statusTitle"></h3>
+                                <p id="statusSubtitle"></p>
+                            </div>
+                        </div>
+                        <div class="result-disease-name" id="diseaseName"></div>
+                        <div class="result-confidence-value" id="confidenceText"></div>
+                        <div class="confidence-bar-wrapper">
+                            <div class="confidence-bar" id="confidenceBar"></div>
+                        </div>
+                        <div class="top-predictions">
+                            <h4>Top Predictions</h4>
+                            <div id="topPredictions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disease Library Section -->
+    <section id="library">
+        <div class="container">
+            <div class="section-header">
+                <h2>Disease Library</h2>
+                <p>All 15 plant conditions our model can identify</p>
+            </div>
+            <div class="library-search">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="librarySearch" placeholder="Search diseases..." oninput="filterLibrary()">
+            </div>
+            <div class="disease-grid" id="diseaseGrid"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have questions or feedback? We'd love to hear from you</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Whether you have a question about the model, need help with a diagnosis, or want to contribute to the project — we're here to help.</p>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! Thank you.');">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PlantDetect. Built with PyTorch & Flask.</p>
+        </div>
+    </footer>
+
+<script>
+// ============================================================
+// Disease Library Data
+// ============================================================
+const DISEASES = [
+    { raw: "Pepper__bell___Bacterial_spot", display: "Pepper Bell — Bacterial Spot", plant: "Pepper", healthy: false },
+    { raw: "Pepper__bell___healthy", display: "Pepper Bell — Healthy", plant: "Pepper", healthy: true },
+    { raw: "Potato___Early_blight", display: "Potato — Early Blight", plant: "Potato", healthy: false },
+    { raw: "Potato___Late_blight", display: "Potato — Late Blight", plant: "Potato", healthy: false },
+    { raw: "Potato___healthy", display: "Potato — Healthy", plant: "Potato", healthy: true },
+    { raw: "Tomato_Bacterial_spot", display: "Tomato — Bacterial Spot", plant: "Tomato", healthy: false },
+    { raw: "Tomato_Early_blight", display: "Tomato — Early Blight", plant: "Tomato", healthy: false },
+    { raw: "Tomato_Late_blight", display: "Tomato — Late Blight", plant: "Tomato", healthy: false },
+    { raw: "Tomato_Leaf_Mold", display: "Tomato — Leaf Mold", plant: "Tomato", healthy: false },
+    { raw: "Tomato_Septoria_leaf_spot", display: "Tomato — Septoria Leaf Spot", plant: "Tomato", healthy: false },
+    { raw: "Tomato_Spider_mites_Two_spotted_spider_mite", display: "Tomato — Spider Mites", plant: "Tomato", healthy: false },
+    { raw: "Tomato__Target_Spot", display: "Tomato — Target Spot", plant: "Tomato", healthy: false },
+    { raw: "Tomato__Tomato_YellowLeaf__Curl_Virus", display: "Tomato — Yellow Leaf Curl Virus", plant: "Tomato", healthy: false },
+    { raw: "Tomato__Tomato_mosaic_virus", display: "Tomato — Mosaic Virus", plant: "Tomato", healthy: false },
+    { raw: "Tomato_healthy", display: "Tomato — Healthy", plant: "Tomato", healthy: true },
+];
+
+// ============================================================
+// Render Disease Library
+// ============================================================
+function renderLibrary(filter = "") {
+    const grid = document.getElementById("diseaseGrid");
+    const q = filter.toLowerCase();
+    const filtered = DISEASES.filter(d =>
+        d.display.toLowerCase().includes(q) || d.plant.toLowerCase().includes(q)
+    );
+    grid.innerHTML = filtered.map(d => {
+        const tagClass = d.plant.toLowerCase();
+        const statusClass = d.healthy ? "healthy" : "diseased";
+        const statusText = d.healthy ? "✅ Healthy" : "⚠️ Disease";
+        return `
+            <div class="disease-card">
+                <span class="plant-tag ${tagClass}">${d.plant}</span>
+                <h3>${d.display}</h3>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+            </div>`;
+    }).join("");
+}
+
+function filterLibrary() {
+    renderLibrary(document.getElementById("librarySearch").value);
+}
+
+// ============================================================
+// File Upload & Preview
+// ============================================================
+let selectedFile = null;
+
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("fileInput");
+
+// Drag & drop
+dropzone.addEventListener("dragover", e => { e.preventDefault(); dropzone.classList.add("drag-over"); });
+dropzone.addEventListener("dragleave", () => dropzone.classList.remove("drag-over"));
+dropzone.addEventListener("drop", e => {
+    e.preventDefault();
+    dropzone.classList.remove("drag-over");
+    if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length) handleFile(fileInput.files[0]);
+});
+
+function handleFile(file) {
+    const allowed = ["image/png", "image/jpeg", "image/webp", "image/bmp"];
+    if (!allowed.includes(file.type)) {
+        showError("Please upload a PNG, JPG, WEBP, or BMP image.");
+        return;
+    }
+    if (file.size > 16 * 1024 * 1024) {
+        showError("File too large. Maximum size is 16 MB.");
+        return;
+    }
+    selectedFile = file;
+    hideError();
+
+    const reader = new FileReader();
+    reader.onload = e => {
+        document.getElementById("previewImg").src = e.target.result;
+        document.getElementById("fileName").textContent = file.name;
+        document.getElementById("imagePreview").style.display = "block";
+        document.getElementById("uploadActions").style.display = "flex";
+        dropzone.style.display = "none";
+    };
+    reader.readAsDataURL(file);
+}
+
+function clearUpload() {
+    selectedFile = null;
+    fileInput.value = "";
+    document.getElementById("imagePreview").style.display = "none";
+    document.getElementById("uploadActions").style.display = "none";
+    dropzone.style.display = "block";
+    document.getElementById("resultCard").style.display = "none";
+    document.getElementById("resultsPlaceholder").style.display = "flex";
+    hideError();
+}
+
+// ============================================================
+// Prediction
+// ============================================================
+async function submitPrediction() {
+    if (!selectedFile) return;
+
+    const spinner = document.getElementById("spinner");
+    const resultCard = document.getElementById("resultCard");
+    const placeholder = document.getElementById("resultsPlaceholder");
+
+    placeholder.style.display = "none";
+    resultCard.style.display = "none";
+    spinner.classList.add("active");
+    hideError();
+
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    try {
+        const res = await fetch("/predict", { method: "POST", body: formData });
+        const data = await res.json();
+
+        spinner.classList.remove("active");
+
+        if (!data.success) {
+            showError(data.error || "Prediction failed.");
+            placeholder.style.display = "flex";
+            return;
+        }
+
+        displayResults(data);
+    } catch (err) {
+        spinner.classList.remove("active");
+        showError("Could not connect to server. Make sure app.py is running.");
+        placeholder.style.display = "flex";
+    }
+}
+
+function displayResults(data) {
+    const resultCard = document.getElementById("resultCard");
+    const status = document.getElementById("resultStatus");
+    const statusIcon = document.getElementById("statusIcon");
+    const statusTitle = document.getElementById("statusTitle");
+    const statusSubtitle = document.getElementById("statusSubtitle");
+
+    if (data.is_healthy) {
+        status.className = "result-status healthy";
+        statusIcon.textContent = "✅";
+        statusTitle.textContent = "Plant is Healthy";
+        statusSubtitle.textContent = "No disease detected";
+    } else {
+        status.className = "result-status diseased";
+        statusIcon.textContent = "⚠️";
+        statusTitle.textContent = "Disease Detected";
+        statusSubtitle.textContent = "Treatment may be needed";
+    }
+
+    document.getElementById("diseaseName").textContent = data.disease;
+    document.getElementById("confidenceText").textContent = `Confidence: ${data.confidence}%`;
+
+    const bar = document.getElementById("confidenceBar");
+    bar.style.width = "0%";
+    bar.className = "confidence-bar" + (data.confidence < 50 ? " danger" : "");
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => { bar.style.width = data.confidence + "%"; });
+    });
+
+    // Top 3
+    const container = document.getElementById("topPredictions");
+    container.innerHTML = data.top3.map((p, i) => `
+        <div class="prediction-item">
+            <div class="prediction-rank">${i + 1}</div>
+            <div class="prediction-name">${p.disease}</div>
+            <div class="prediction-conf">${p.confidence}%</div>
+            <div class="prediction-bar-bg">
+                <div class="prediction-bar-fill" style="width: ${p.confidence}%"></div>
+            </div>
+        </div>
+    `).join("");
+
+    resultCard.style.display = "block";
+}
+
+// ============================================================
+// Error Handling
+// ============================================================
+function showError(msg) {
+    const el = document.getElementById("errorBanner");
+    el.textContent = msg;
+    el.style.display = "block";
+}
+
+function hideError() {
+    document.getElementById("errorBanner").style.display = "none";
+}
+
+// ============================================================
+// Init
+// ============================================================
+renderLibrary();
+</script>
+
+</body>
+</html>

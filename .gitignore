@@ -1,0 +1,19 @@
+# Virtual environment
+.venv/
+
+# Dataset (too large for git)
+PlantVillage/
+
+# Trained model (too large for git — ~45MB)
+*.pth
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Training artifacts
+training_curves.png
+
+# OS files
+.DS_Store
+Thumbs.db
